@@ -5,13 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthiew <jthiew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 19:24:08 by jthiew            #+#    #+#             */
-/*   Updated: 2024/11/25 21:19:02 by jthiew           ###   ########.fr       */
+/*   Created: 2024/11/27 19:49:31 by jthiew            #+#    #+#             */
+/*   Updated: 2024/11/27 19:49:33 by jthiew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+//count = return length
+//len = length of print (for ft_pad_width)
 int	ft_print_d(int d, t_flags flag)
 {
 	int		count;
@@ -34,15 +36,38 @@ int	ft_print_d(int d, t_flags flag)
 			len++;
 		}
 		digit_str = ft_itoa(d);
-		count += ft_print_str(digit_str, ft_strlen(digit_str));
-		len += ft_strlen(digit_str);
-		if (d < 0)
-		{
-			if (flag.precision > ft_strlen(digit_str) - 1)
-			{
+    len += ft_strlen(digit_str);
+    if (flag.precision == -1)
+    {
+      count += ft_pad_width(flag.width, len, flag.zero);
+    }
+    else 
+    {
+      if (
+      count += ft_pad_width(flag.width - flag.precision, len, flag.zero);
+    }
 
-			}
+    
+
+	// continue logic here
+	}
+}
+		
+
+if (d < 0)
+			count += ft_print_word('-');
+		if (d >= 0)
+			num_digit = ft_strlen(digit_str);
+		else
+			num_digit = ft_strlen(digit_str) - 1;
+		if (flag.precision == -1)
+		{
+			count += ft_pad_width(flag.width, num_digit, flag.zero);
+			count += ft_print_str(digit_str, num_digit);
 		}
+
+		len += ft_strlen(digit_str);
+		count += ft_print_str(digit_str, ft_strlen(digit_str));
 			
 		ft_pad_width(flag.width, len, false);
 
