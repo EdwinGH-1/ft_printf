@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_printf_utoa.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthiew <jthiew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 18:24:22 by jthiew            #+#    #+#             */
-/*   Updated: 2024/12/08 18:24:43 by jthiew           ###   ########.fr       */
+/*   Created: 2024/12/08 17:38:13 by jthiew            #+#    #+#             */
+/*   Updated: 2024/12/08 17:42:06 by jthiew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_is_in(char c, char *set)
+char	*ft_u_to_str(unsigned int num, char *str, size_t len)
 {
-	while (*set != '\0')
+	str = ft_calloc(len + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	len--;
+	while (len != 0)
 	{
-		if (c == *set)
-			return (1);
-		set++;
+		str[len] = (num % 10) + '0';
+		num /= 10;
+		len--;
 	}
-	return (0);
+	str[0] = (num % 10) + '0';
+	return (str);
 }
 
-int	ft_is_flag(char c)
+char	*ft_printf_utoa(unsigned int num)
 {
-	return (ft_isdigit(c) || ft_is_in(c, FLAGS) || ft_is_in(c, SPECS));
+	size_t	len;
+	char	*str;
+
+	len = ft_utoa_len(num);
+	str = 0;
+	str = ft_u_to_str(num, str, len);
+	if (!str)
+		return (NULL);
+	return (str);
 }

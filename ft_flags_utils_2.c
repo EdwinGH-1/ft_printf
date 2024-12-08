@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*   ft_flags_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthiew <jthiew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 18:24:22 by jthiew            #+#    #+#             */
-/*   Updated: 2024/12/08 18:24:43 by jthiew           ###   ########.fr       */
+/*   Created: 2024/12/08 10:32:40 by jthiew            #+#    #+#             */
+/*   Updated: 2024/12/08 11:12:40 by jthiew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_is_in(char c, char *set)
+int	ft_pad_width(int width, int len, int zero)
 {
-	while (*set != '\0')
-	{
-		if (c == *set)
-			return (1);
-		set++;
-	}
-	return (0);
-}
+	int	count;
 
-int	ft_is_flag(char c)
-{
-	return (ft_isdigit(c) || ft_is_in(c, FLAGS) || ft_is_in(c, SPECS));
+	count = 0;
+	while (width > len)
+	{
+		if (zero)
+			count += ft_print_char('0');
+		if (!zero)
+			count += ft_print_char(' ');
+		width--;
+	}
+	return (count);
 }
